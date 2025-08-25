@@ -8,11 +8,11 @@ let badWord = 'freaking';
 //console.log(storyWords);
 let count = 0;
 const wordCount = storyWords.forEach(function(word){
-return count ++;
+return console.log(count ++);
 });
 storyWords = storyWords.filter(function(word){
   if(word!=unnecessaryWord){
-    return word;
+    return true;
   }
 })
 let badwordIndex = storyWords.findIndex(function(word){
