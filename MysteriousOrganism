@@ -1,0 +1,68 @@
+//Object Factory with methods
+// Returns a random DNA base
+const returnRandBase = () => {
+  const dnaBases = ['A', 'T', 'C', 'G']
+  return dnaBases[Math.floor(Math.random() * 4)] 
+}
+
+// Returns a random single strand of DNA containing 15 bases
+const mockUpStrand = () => {
+  const newStrand = []
+  for (let i = 0; i < 15; i++) {
+    newStrand.push(returnRandBase())
+  }
+  return newStrand
+}
+
+function pAequorFactory(uniqueNumber,arr){
+  let pAequor = {specimenNum: uniqueNumber, dna: arr,
+  mutate(){
+    const randIndex = Math.floor(Math.random()*this.dna.length);
+    let newBase = returnRandBase(); 
+    while(this.dna[randIndex]=== newBase){
+      newBase=returnRandBase();
+    }
+    this.dna[randIndex] = newBase;
+    return this.dna;
+  },
+  compareDNA(altPaequor){
+    let numOfcommonDNA = 0;
+
+    for(let i = 0; i<altPaequor.dna.length; i++){
+        if(this.dna[i]===altPaequor.dna[i]){
+          numOfcommonDNA++;
+        }
+
+    }
+    let commondDNApercentage = (numOfcommonDNA/this.dna.length)*100;
+    console.log("specimen"+this.specimenNum+" and specimen"+altPaequor.specimenNum+" have "+commonDNApercentage+"% DNA in common.");
+
+
+  },
+  willLikelySurvive(){
+    let numOfCorG=0;
+    for(let i=0;i<pAequor.dna.length;i++){
+      if(pAequor.dna[i]==='C' || pAequor.dna[i]==='G' ){
+        numOfCorG++;
+      }
+    }
+    if(numOfCorG>8){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }}
+  return pAequor;
+}
+
+
+let survivorpAequors =[];
+let id = 1;
+while(survivorpAequors.length<30){
+  let newpAequor = pAequorFactory(id,mockUpStrand);
+  if(newpAequor.willLikelySurvive()){
+    survivorpAequors.push(newpAequor);
+  }
+  id++;
+}
